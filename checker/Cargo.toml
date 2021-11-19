@@ -37,7 +37,7 @@ tar = "0.4.36"
 sled = "*"
 shellwords = "*"
 tempfile = "*"
-z3-sys = "*"
+z3-sys = { git = "https://github.com/prove-rs/z3.rs.git", rev = "ef6ca05cac901795112444fd805f25b06a1d5526" }
 regex = "*"
 petgraph = "*"
 serde_json = "*"

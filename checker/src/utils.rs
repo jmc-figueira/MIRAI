@@ -30,12 +30,14 @@ pub fn find_sysroot() -> String {
     let toolchain = option_env!("RUSTUP_TOOLCHAIN");
     match (home, toolchain) {
         (Some(home), Some(toolchain)) => format!("{}/toolchains/{}", home, toolchain),
-        _ => option_env!("RUST_SYSROOT")
-            .expect(
-                "Could not find sysroot. Specify the RUST_SYSROOT environment variable, \
-                 or use rustup to set the compiler to use for Mirai",
-            )
-            .to_owned(),
+        _ => match option_env!("RUST_SYSROOT") {
+            Some(sysroot) => sysroot.to_owned(),
+            _ => {
+                println!("Could not find sysroot. Specify the RUST_SYSROOT environment variable, \
+                 or use rustup to set the compiler to use for Mirai");
+                std::process::exit(1)
+            },
+        }
     }
 }
 
